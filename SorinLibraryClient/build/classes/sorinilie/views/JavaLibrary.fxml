@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="298.0" prefWidth="320" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.JavaLibraryController">
+    <children>
+        <Label fx:id="message" alignment="CENTER" layoutX="82.0" layoutY="149.0" minHeight="16" minWidth="69" prefHeight="17.0" prefWidth="149.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="60.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/logo.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="username" layoutX="86.0" layoutY="182.0" promptText="Nume utilizator" />
+      <PasswordField fx:id="password" layoutX="86.0" layoutY="217.0" promptText="Parola" />
+      <Button alignment="CENTER" layoutX="134.0" layoutY="259.0" mnemonicParsing="false" onAction="#loginAction" text="Logare" />
+      <Label layoutX="140.0" layoutY="149.0" />
+    </children>
+</AnchorPane>
