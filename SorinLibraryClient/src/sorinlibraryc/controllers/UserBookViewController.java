@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -128,15 +129,6 @@ public class UserBookViewController implements Initializable {
                 this.img.setImage(image);
             }
         }
-        
-        
-//        String image = book.getImg();
-//        if(image != null)
-//        {
-//            File file = new File(image);
-//            Image i = new Image(file.toURI().toString());
-//            img.setImage(i);
-//        }
     }
 
     public TableView getTb() {
@@ -149,6 +141,41 @@ public class UserBookViewController implements Initializable {
     
     @FXML
     private void reserveBook(){
+        
+        JSONObject params = new JSONObject();
+        String user = client.getSession();
+        
+        params.put("user", user);
+        params.put("book", book.getId());
+        
+        JSONObject response = new JSONObject(client.sendCommand("setReservation", params));
+        System.out.println(response.toString());
+        if(response.has("error") && response.get("error").equals(""))
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success !");
+            alert.setHeaderText("Reservarea efectuata cu success !");
+            alert.setContentText("Rezervarea ta a fost efectuata cu success ! Puteti sa va prezentati la librarie pentru a ridica cartea.");
+            alert.showAndWait();
+            book.setQuantity(book.getQuantity()-1);
+            stoc.setText(book.getQuantity().toString());
+            tb.refresh();
+            if(book.getQuantity() <= 0)
+                rezerva.setDisable(true);            
+        }
+        else if(response.has("error"))
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Eroare !");
+            alert.setHeaderText("Reservarea ta nu a putut fi finalizata !");
+            alert.setContentText(response.get("error").toString());
+            alert.showAndWait();
+            tb.refresh();
+            if(book.getQuantity() <= 0)
+                rezerva.setDisable(true);
+        }
+        
+        
 //        Preferences userPreferences = Preferences.userRoot();
 //        String userID = userPreferences.get("user_id", "");
 //        LoginQuery query = new LoginQuery();

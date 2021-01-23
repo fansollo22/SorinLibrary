@@ -58,6 +58,7 @@ public class Client {
     {
         String response = null;
         JSONObject json = new JSONObject();
+        params.put("sessionID", session);
         json.put("command",command);
         json.put("params",params);
         try
