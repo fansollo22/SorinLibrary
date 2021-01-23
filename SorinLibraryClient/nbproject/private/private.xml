@@ -3,8 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinilie/SorinLibraryClient.java</file>
-            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinilie/ClientClass.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/Client.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/models/Books.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/models/Users.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/models/Authors.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/SorinLibraryClient.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/views/LoginView.fxml</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/models/BookAuthors.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/controllers/LoginController.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/models/Reservations.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/ErrorHandling.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/views/MainUser.fxml</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/models/Categories.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/controllers/UserBookViewController.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/models/BookCategories.java</file>
+            <file>file:/D:/ProiectLibraryJavaGIT/SorinLibrary/SorinLibraryClient/src/sorinlibraryc/controllers/MainUserController.java</file>
         </group>
     </open-files>
 </project-private>

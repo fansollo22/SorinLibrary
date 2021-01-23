@@ -8,12 +8,12 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="SorinLibraryClient.jar" size="6755" download="eager" />
+    <jar href="SorinLibraryClient.jar" size="51468" download="eager" />
     <jar href="lib\json-20201115.jar" size="69370" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="SorinLibraryClient" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="sorinilie.SorinLibraryClient"  name="SorinLibraryClient" />
+  <jfx:javafx-desc  width="800" height="600" main-class="sorinlibraryc.SorinLibraryClient"  name="SorinLibraryClient" />
   <update check="always"/>
 </jnlp>
