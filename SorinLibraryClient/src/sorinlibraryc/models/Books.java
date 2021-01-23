@@ -50,7 +50,6 @@ public class Books implements Serializable {
         this.language = obj.get("language").toString();
         this.quantity = Integer.parseInt(obj.get("quantity").toString());
         this.pages = Integer.parseInt(obj.get("pages").toString());
-        System.out.println(obj.get("launchDate"));
         String d = obj.get("launchDate").toString();
         DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
         Date dt;

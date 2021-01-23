@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import sorinlibrarys.entities.Users;
 
 /**
  *
@@ -22,7 +23,7 @@ public class ServerThread extends Thread {
     PrintWriter os;
     
     RequestParser rp;
-    private String sessionID;
+    private Users session;
     
     public ServerThread(Socket s){
         this.s=s;
@@ -94,13 +95,13 @@ public class ServerThread extends Thread {
         return response;
     }
     
-    public String getSession()
+    public Users getSession()
     {
-        return this.sessionID;
+        return this.session;
     }
     
-    public void setSession(String ses)
+    public void setSession(Users ses)
     {
-        this.sessionID = ses;
+        this.session = ses;
     }
 }

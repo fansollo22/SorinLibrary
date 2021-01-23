@@ -70,20 +70,58 @@ public class MainUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initColumns();
-        initFilters();
         initRowEvent();
     }
     
     @FXML
     public void filterBooks()
     {
+        JSONObject params = new JSONObject();
+        if(!catFilter.getSelectionModel().isEmpty())
+        {
+            Categories c = (Categories)catFilter.getValue();
+            params.put("category", c.getId());
+        }
+            
+        if(!autFilter.getSelectionModel().isEmpty())
+        {
+            Authors a = (Authors)autFilter.getValue();
+            params.put("author", a.getId());
+        }
         
+        if(!nameFilter.getText().trim().isEmpty())
+            params.put("name", nameFilter.getText());
+        
+        JSONObject response = new JSONObject(client.sendCommand("getBooks", params));
+        JSONArray a = new JSONArray(response.get("books").toString());
+        ObservableList<Books> data = FXCollections.observableArrayList();
+        for(int i = 0; i < a.length(); i++)
+        {
+              JSONObject obj = a.getJSONObject(i);
+              Books b = new Books(obj);
+              data.add(b);
+        }
+        tabView.setItems(data);
     }
     
     @FXML
     public void resetFilters()
     {
+        JSONObject params = new JSONObject();
+        JSONObject response = new JSONObject(client.sendCommand("getBooks", params));
+        JSONArray a = new JSONArray(response.get("books").toString());
+        ObservableList<Books> data = FXCollections.observableArrayList();
+        for(int i = 0; i < a.length(); i++)
+        {
+              JSONObject obj = a.getJSONObject(i);
+              Books b = new Books(obj);
+              data.add(b);
+        }
+        tabView.setItems(data); 
         
+        nameFilter.setText("");
+        catFilter.valueProperty().set(null);
+        autFilter.valueProperty().set(null);
     }
     
     private void initColumns()
@@ -97,17 +135,6 @@ public class MainUserController implements Initializable {
     
     private void initTable()
     {
-//        JSONObject params = new JSONObject();
-//        JSONObject response = new JSONObject(client.sendCommand("getBooks", params));
-//        JSONArray a = new JSONArray(response.get("books").toString());
-//        ObservableList<Books> data = FXCollections.observableArrayList();
-//        for(int i = 0; i < a.length(); i++)
-//        {
-//              JSONObject obj = a.getJSONObject(i);
-//              Books b = new Books(obj);
-//              data.add(b);
-//        }
-//        tabView.setItems(data);
         JSONObject params = new JSONObject();
         JSONObject response = new JSONObject(client.sendCommand("initBookView", params));
         JSONArray books = new JSONArray(response.get("books").toString());
@@ -139,11 +166,6 @@ public class MainUserController implements Initializable {
             dataCat.add(cat);
         }
         catFilter.setItems(dataCat);
-    }
-    
-    private void initFilters()
-    {
-        
     }
     
     private void initRowEvent()

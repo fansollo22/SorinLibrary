@@ -20,6 +20,7 @@ import sorinlibrarys.queries.AuthorsQuery;
 import sorinlibrarys.queries.BooksQuery;
 import sorinlibrarys.queries.CategoriesQuery;
 import sorinlibrarys.queries.LoginQuery;
+import sorinlibrarys.queries.ReservationsQuery;
 
 /**
  *
@@ -50,6 +51,8 @@ public class RequestParser {
                 return getBookImage(params);
             case "initBookView": 
                 return initBookView();
+            case "setReservation":
+                return setReservation(params);
             default: 
                 return null; 
         }
@@ -60,8 +63,6 @@ public class RequestParser {
         String user = params.getString("username");
         String pass = params.getString("password");
         
-        System.out.println(user);
-        System.out.println(pass);
         
         LoginQuery lq = new LoginQuery();
         List<Users> listLogin = lq.listLogin();
@@ -77,14 +78,14 @@ public class RequestParser {
                     {
                         response.put("userRole", "admin");
                         response.put("error", "");
-                        sh.setSession(u.getUsername());
+                        sh.setSession(u);
                         break;
                     }
                     else
                     {
                         response.put("userRole", "user");
                         response.put("error", "");
-                        sh.setSession(u.getUsername());
+                        sh.setSession(u);
                         break;
                     }
                 }
@@ -105,30 +106,43 @@ public class RequestParser {
     }
     
     private String getBooks(JSONObject params)
-    {
+    {    
+        if(!params.has("sessionID") || !params.get("sessionID").equals(sh.getSession().getUsername()))
+        {
+            return new JSONObject().toString();
+        }
+        
         String response = "";
         BooksQuery bq = new BooksQuery();
+        String nameF = "";
+        Integer authorF = null;
+        Integer categoryF = null;
         
-//        if(!params.get("session").equals(sh.getSession())){
-//            return "";
-//        }
-//        
-//        params.remove("session");
+        if(params.has("name"))
+            nameF = params.getString("name");
         
-        if(params.isEmpty())
-        {
-            JSONObject obj = new JSONObject();
-            List<Books> lb = bq.listAllBooks();
-            JSONArray ja = new JSONArray(lb);
-            obj.put("books", ja);
-            response = obj.toString();
-        }
+        if(params.has("author"))
+            authorF = params.getInt("author");
+        
+        if(params.has("category"))
+            categoryF = params.getInt("category");
+        
+        JSONObject obj = new JSONObject();
+        List<Books> lb = bq.bookFiltering(nameF,categoryF,authorF);
+        JSONArray ja = new JSONArray(lb);
+        obj.put("books", ja);
+        response = obj.toString();
         
         return response;
     }
     
     private String getBookImage(JSONObject params)
     {
+        if(!params.has("sessionID") || !params.get("sessionID").equals(sh.getSession().getUsername()))
+        {
+            return new JSONObject().toString();
+        }
+        
         JSONObject response = new JSONObject();
         
         BooksQuery bq = new BooksQuery();
@@ -196,5 +210,39 @@ public class RequestParser {
         
         response = obj.toString();
         return response;
+    }
+    
+    private String setReservation(JSONObject params)
+    {
+        if(!params.has("sessionID") || !params.get("sessionID").equals(sh.getSession().getUsername()))
+        {
+            return new JSONObject().toString();
+        }
+        
+        JSONObject response = new JSONObject();
+        String checkUser = "";
+        Integer bookID = null;
+        
+        if(params.has("user"))
+            checkUser = params.get("user").toString();
+        
+        if(params.has("book"))
+            bookID = params.getInt("book");
+
+        if(!sh.getSession().getUsername().equals(checkUser) || bookID == null)
+            return new JSONObject().toString();
+
+        BooksQuery bq = new BooksQuery();
+        Books book = bq.getBookByID(bookID);
+        
+        ReservationsQuery rq = new ReservationsQuery();
+        boolean b = rq.insertReservation(book, sh.getSession());
+        System.out.println(b);
+        if(b)
+           response.put("error", ""); 
+        else
+           response.put("error", "Rezervarea ta nu a putut fi finalizata. Daca crezi ca aceasta eroare nu ar trebui sa se intample, contacteaza administratorul.");
+        
+        return response.toString();
     }
 }

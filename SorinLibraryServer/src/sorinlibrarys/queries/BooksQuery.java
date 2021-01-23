@@ -43,7 +43,7 @@ public class BooksQuery {
         em.getTransaction().commit();
     }
     
-    public List<Books> bookFiltering(String name, Categories cat, Authors auth){
+    public List<Books> bookFiltering(String name, Integer cat, Integer auth){
         String query = "";
         System.out.println(name=="");
         if((name == "" || name.trim().isEmpty() || name == null) && (cat != null || auth != null))
@@ -59,12 +59,12 @@ public class BooksQuery {
              query += "SELECT b FROM Books b WHERE b.name LIKE '%"+name+"%' OR";
        
         if(cat != null)
-            query += " b.id IN (SELECT bc.bookId.id FROM BookCategories bc WHERE bc.categoryId.id ="+String.valueOf(cat.getId())+")";
+            query += " b.id IN (SELECT bc.bookId.id FROM BookCategories bc WHERE bc.categoryId.id ="+String.valueOf(cat)+")";
         
         if(auth != null && cat != null)
-            query += " AND b.id IN (SELECT ba.bookId.id FROM BookAuthors ba WHERE ba.authorId.id ="+String.valueOf(auth.getId())+")";
+            query += " AND b.id IN (SELECT ba.bookId.id FROM BookAuthors ba WHERE ba.authorId.id ="+String.valueOf(auth)+")";
         else if(auth != null)
-            query += " b.id IN (SELECT ba.bookId.id FROM BookAuthors ba WHERE ba.authorId.id ="+String.valueOf(auth.getId())+")";
+            query += " b.id IN (SELECT ba.bookId.id FROM BookAuthors ba WHERE ba.authorId.id ="+String.valueOf(auth)+")";
         System.out.println(query);
         return em.createQuery(query, Books.class).getResultList();
     }

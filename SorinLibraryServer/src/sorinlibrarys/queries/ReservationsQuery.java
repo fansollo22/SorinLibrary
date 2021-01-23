@@ -40,13 +40,13 @@ public class ReservationsQuery {
         rs.setUserId(user);
         em.persist(rs);
         em.getTransaction().commit();
-        
         BooksQuery bs = new BooksQuery();
         bs.reduceBookStock(book);
         
         return true;
       }
       catch(Exception e) {
+        System.out.println(e.toString());
         return false;
       } 
     }
