@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="566.0" prefWidth="521.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sorinlibraryc.controllers.AdminBookViewController">
+   <children>
+      <HBox alignment="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="262.0" prefWidth="494.0">
+         <children>
+            <ImageView fx:id="img" fitHeight="247.0" fitWidth="247.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/book-default-cover.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <SplitPane dividerPositions="0.15918367346938775" layoutX="14.0" layoutY="284.0" orientation="VERTICAL" prefHeight="268.0" prefWidth="494.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="94.0" prefWidth="483.0">
+               <children>
+                  <Button fx:id="rezerva" layoutX="83.0" layoutY="7.0" mnemonicParsing="false" onAction="#reserveBook" prefHeight="25.0" prefWidth="64.0" text="Rezerva" />
+                  <Button fx:id="rezerva1" layoutX="337.0" layoutY="7.0" mnemonicParsing="false" onAction="#reserveBook" prefHeight="25.0" prefWidth="91.0" text="Actualizeaza" />
+                  <Button layoutX="196.0" layoutY="7.0" mnemonicParsing="false" text="Incarca imagine" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="235.0" prefWidth="492.0">
+               <children>
+                  <TextField fx:id="title" layoutX="21.0" layoutY="26.0" prefHeight="25.0" prefWidth="190.0" />
+                  <TextField fx:id="author" layoutX="275.0" layoutY="26.0" prefHeight="25.0" prefWidth="190.0" />
+                  <TextField fx:id="launchDate" layoutX="25.0" layoutY="77.0" prefHeight="25.0" prefWidth="190.0" />
+                  <TextField fx:id="language" layoutX="275.0" layoutY="77.0" prefWidth="190.0" />
+                  <Label layoutX="21.0" layoutY="4.0" prefHeight="17.0" prefWidth="190.0" text="Titlul cartii" textAlignment="CENTER" />
+                  <TextArea fx:id="categories" layoutX="27.0" layoutY="130.0" prefHeight="75.0" prefWidth="190.0" />
+                  <Label layoutX="25.0" layoutY="55.0" prefHeight="17.0" prefWidth="190.0" text="Lansare" textAlignment="CENTER" />
+                  <Label layoutX="275.0" layoutY="4.0" prefHeight="17.0" prefWidth="190.0" text="Autor" />
+                  <Label layoutX="275.0" layoutY="55.0" prefHeight="17.0" prefWidth="190.0" text="Limba" />
+                  <TextField fx:id="pages" layoutX="277.0" layoutY="130.0" prefHeight="25.0" prefWidth="190.0" />
+                  <TextField fx:id="stoc" layoutX="277.0" layoutY="180.0" prefWidth="190.0" />
+                  <Label layoutX="277.0" layoutY="108.0" prefHeight="17.0" prefWidth="190.0" text="Numar pagini" />
+                  <Label layoutX="277.0" layoutY="159.0" prefHeight="17.0" prefWidth="190.0" text="Stoc" />
+                  <Label layoutX="27.0" layoutY="108.0" prefHeight="17.0" prefWidth="190.0" text="Categorii" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

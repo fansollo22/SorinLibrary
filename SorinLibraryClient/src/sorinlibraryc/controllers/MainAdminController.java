@@ -35,7 +35,7 @@ import sorinlibraryc.models.Categories;
  *
  * @author Flagster
  */
-public class MainUserController implements Initializable {
+public class MainAdminController implements Initializable {
     
     @FXML 
     private TableView<Books> tabView;
@@ -127,15 +127,6 @@ public class MainUserController implements Initializable {
         autFilter.valueProperty().set(null);
     }
     
-    private void initColumns()
-    {
-        colID.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colStoc.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        colAuthors.setCellValueFactory(new PropertyValueFactory<>("bookAuthorsCollection"));
-        colCategories.setCellValueFactory(new PropertyValueFactory<>("bookCategoriesCollection"));
-    }
-    
     private void showNotifications()
     {
         if(!this.notifications.isEmpty())
@@ -149,6 +140,15 @@ public class MainUserController implements Initializable {
                 alert.showAndWait();
             }
         }
+    }
+    
+    private void initColumns()
+    {
+        colID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colStoc.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colAuthors.setCellValueFactory(new PropertyValueFactory<>("bookAuthorsCollection"));
+        colCategories.setCellValueFactory(new PropertyValueFactory<>("bookCategoriesCollection"));
     }
     
     private void initTable()
@@ -212,6 +212,12 @@ public class MainUserController implements Initializable {
             });
             return row ;
         });
+    }
+    
+    @FXML
+    private void addBookView()
+    {
+        
     }
     
     public void passConnection(Client c, JSONArray j)

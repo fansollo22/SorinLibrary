@@ -8,6 +8,9 @@ package sorinlibrarys;
 import java.io.File;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
 import org.json.JSONArray;
@@ -15,6 +18,7 @@ import org.json.JSONObject;
 import sorinlibrarys.entities.Authors;
 import sorinlibrarys.entities.Books;
 import sorinlibrarys.entities.Categories;
+import sorinlibrarys.entities.Reservations;
 import sorinlibrarys.entities.Users;
 import sorinlibrarys.queries.AuthorsQuery;
 import sorinlibrarys.queries.BooksQuery;
@@ -78,6 +82,7 @@ public class RequestParser {
                     {
                         response.put("userRole", "admin");
                         response.put("error", "");
+                        response.put("notifications", this.userNotifications(u));
                         sh.setSession(u);
                         break;
                     }
@@ -85,6 +90,7 @@ public class RequestParser {
                     {
                         response.put("userRole", "user");
                         response.put("error", "");
+                        response.put("notifications", this.userNotifications(u));
                         sh.setSession(u);
                         break;
                     }
@@ -101,6 +107,33 @@ public class RequestParser {
                 response.put("error", "Incorrect username.");
             }
         }
+        
+        return response.toString();
+    }
+    
+    private String userNotifications(Users userId)
+    {
+        JSONArray response = new JSONArray();
+        ReservationsQuery rq = new ReservationsQuery();
+        
+        List<Reservations> lr = rq.listReservationsByUserID(userId);
+        
+        Date now = new Date();
+
+        for(Reservations r : lr)
+        {
+            Date reservationDate = r.getDate();
+            LocalDateTime localDateTime = reservationDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            localDateTime.plusMonths(1);
+            reservationDate = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+            if(reservationDate.before(now))
+            {
+                String notification = "Termenul de imprumut de O LUNA pentru cartea - "+r.getBookId().getName()+" - a expirat si trebuie returnata catre librarie !";
+                response.put(notification);
+            }
+        }
+        
+        System.out.println(response.toString());
         
         return response.toString();
     }
@@ -237,7 +270,6 @@ public class RequestParser {
         
         ReservationsQuery rq = new ReservationsQuery();
         boolean b = rq.insertReservation(book, sh.getSession());
-        System.out.println(b);
         if(b)
            response.put("error", ""); 
         else

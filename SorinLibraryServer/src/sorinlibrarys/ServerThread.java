@@ -48,11 +48,9 @@ public class ServerThread extends Thread {
             String request = is.readLine();
             line = decodeMessage(request);
             while(true){
-                System.out.println(request);
                 line = decodeMessage(request);
                 os.println(line);
                 os.flush();
-                System.out.println(line);
                 request = is.readLine();
             }
         } 

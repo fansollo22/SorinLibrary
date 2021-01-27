@@ -7,8 +7,9 @@
     <class>sorinlibrarys.entities.BookCategories</class>
     <class>sorinlibrarys.entities.Books</class>
     <class>sorinlibrarys.entities.Categories</class>
-    <class>sorinlibrarys.entities.Reservations</class>
     <class>sorinlibrarys.entities.Users</class>
+    <class>sorinlibrarys.entities.Reservations</class>
+    <class>sorinlibrarys.entities.Notifications</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/library"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

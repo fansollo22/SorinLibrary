@@ -5,6 +5,8 @@
  */
 package sorinlibrarys.queries;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import sorinlibrarys.entities.Books;
 import sorinlibrarys.entities.Reservations;
 import sorinlibrarys.entities.Users;
@@ -33,11 +35,17 @@ public class ReservationsQuery {
         return em.createNamedQuery("Reservations.findAll",Reservations.class).getResultList();
     }
     
+    public List<Reservations> listReservationsByUserID(Users userID){
+        return em.createNamedQuery("Reservations.findByUserID", Reservations.class).setParameter("userId", userID).getResultList();
+    }
+    
     public boolean insertReservation(Books book, Users user){
       try {
         Reservations rs = new Reservations();
         rs.setBookId(book);
         rs.setUserId(user);
+        Date now = new Date();
+        rs.setDate(now);
         em.persist(rs);
         em.getTransaction().commit();
         BooksQuery bs = new BooksQuery();
