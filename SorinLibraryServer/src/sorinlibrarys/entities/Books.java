@@ -222,6 +222,5 @@ public class Books implements Serializable {
 
     public void setReservationsCollection(Collection<Reservations> reservationsCollection) {
         this.reservationsCollection = reservationsCollection;
-    }
-    
+    } 
 }

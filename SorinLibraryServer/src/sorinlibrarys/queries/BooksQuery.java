@@ -45,7 +45,6 @@ public class BooksQuery {
     
     public List<Books> bookFiltering(String name, Integer cat, Integer auth){
         String query = "";
-        System.out.println(name=="");
         if((name == "" || name.trim().isEmpty() || name == null) && (cat != null || auth != null))
              query += "SELECT b FROM Books b WHERE";
         else if(cat == null && auth == null)
@@ -65,7 +64,6 @@ public class BooksQuery {
             query += " AND b.id IN (SELECT ba.bookId.id FROM BookAuthors ba WHERE ba.authorId.id ="+String.valueOf(auth)+")";
         else if(auth != null)
             query += " b.id IN (SELECT ba.bookId.id FROM BookAuthors ba WHERE ba.authorId.id ="+String.valueOf(auth)+")";
-        System.out.println(query);
         return em.createQuery(query, Books.class).getResultList();
     }
 }

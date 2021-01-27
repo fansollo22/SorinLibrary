@@ -26,7 +26,6 @@ public class Server {
         }
         catch (IOException e){
             e.printStackTrace();
-            System.out.println("Server error");
         }
         
         while(true){
@@ -39,7 +38,6 @@ public class Server {
 
             catch(Exception e){
                 e.printStackTrace();
-                System.out.println("Connection Error");
 
             }
         }

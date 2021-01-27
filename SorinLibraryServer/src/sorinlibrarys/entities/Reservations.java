@@ -6,6 +6,7 @@
 package sorinlibrarys.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -28,7 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Reservations.findAll", query = "SELECT r FROM Reservations r")
-    , @NamedQuery(name = "Reservations.findById", query = "SELECT r FROM Reservations r WHERE r.id = :id")})
+    , @NamedQuery(name = "Reservations.findById", query = "SELECT r FROM Reservations r WHERE r.id = :id")
+    , @NamedQuery(name = "Reservations.findByDate", query = "SELECT r FROM Reservations r WHERE r.date = :date")
+    , @NamedQuery(name = "Reservations.findByUserID", query = "SELECT r FROM Reservations r WHERE r.userId = :userId")})
 public class Reservations implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,6 +42,10 @@ public class Reservations implements Serializable {
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    @Basic(optional = false)
+    @Column(name = "date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date date;
     @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Books bookId;
@@ -51,12 +60,25 @@ public class Reservations implements Serializable {
         this.id = id;
     }
 
+    public Reservations(Integer id, Date date) {
+        this.id = id;
+        this.date = date;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Books getBookId() {
@@ -97,7 +119,7 @@ public class Reservations implements Serializable {
 
     @Override
     public String toString() {
-        return "com.entities.Reservations[ id=" + id + " ]";
+        return "sorinlibrarys.entities.Reservations[ id=" + id + " ]";
     }
     
 }

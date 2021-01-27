@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import sorinlibraryc.Client;
 
@@ -41,7 +42,7 @@ public class LoginController {
     }
     
     @FXML
-    public void login() throws IOException
+    public void login()  throws IOException
     {
         JSONObject params = new JSONObject();
         
@@ -56,6 +57,7 @@ public class LoginController {
         JSONObject response = new JSONObject(client.sendCommand("login", params));
         String error = response.get("error").toString();
         String answer = response.get("userRole").toString();
+        JSONArray notifications = new JSONArray(response.get("notifications").toString());
         
         if(error.equals(""))
         {
@@ -69,7 +71,7 @@ public class LoginController {
                 stage.setTitle("User - SorinLibrary");
                 stage.setScene(scene);
                 MainUserController controller = loader.getController();
-                controller.passConnection(this.client);
+                controller.passConnection(this.client, notifications);
                 stage.show(); 
                 Stage oldStage = (Stage) message.getScene().getWindow();
                 oldStage.close();
@@ -81,8 +83,8 @@ public class LoginController {
                 Stage stage = new Stage();
                 stage.setTitle("User - SorinLibrary");
                 stage.setScene(scene);
-                LoginController controller = loader.getController();
-                controller.passConnection(this.client);
+                MainAdminController controller = loader.getController();
+                controller.passConnection(this.client, notifications);
                 stage.show(); 
                 Stage oldStage = (Stage) message.getScene().getWindow();
                 oldStage.close();
