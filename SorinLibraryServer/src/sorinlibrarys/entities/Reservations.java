@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Reservations.findAll", query = "SELECT r FROM Reservations r")
     , @NamedQuery(name = "Reservations.findById", query = "SELECT r FROM Reservations r WHERE r.id = :id")
     , @NamedQuery(name = "Reservations.findByDate", query = "SELECT r FROM Reservations r WHERE r.date = :date")
-    , @NamedQuery(name = "Reservations.findByUserID", query = "SELECT r FROM Reservations r WHERE r.userId = :userId")})
+    , @NamedQuery(name = "Reservations.findByUserID", query = "SELECT r FROM Reservations r WHERE r.userId = :userId")
+    , @NamedQuery(name = "Reservations.findByUserANDBook", query = "SELECT r FROM Reservations r WHERE r.userId = :userId AND r.bookId = :bookId")})
 public class Reservations implements Serializable {
 
     private static final long serialVersionUID = 1L;

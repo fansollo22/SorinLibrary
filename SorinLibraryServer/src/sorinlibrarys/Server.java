@@ -35,7 +35,6 @@ public class Server {
                 st.start();
 
             }
-
             catch(Exception e){
                 e.printStackTrace();
 

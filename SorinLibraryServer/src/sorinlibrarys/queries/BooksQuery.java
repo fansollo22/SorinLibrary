@@ -37,12 +37,6 @@ public class BooksQuery {
         return em.createNamedQuery("Books.findAll",Books.class).getResultList();
     }
     
-    public void reduceBookStock(Books b) {
-        b.setQuantity(b.getQuantity()-1);
-        em.merge(b);
-        em.getTransaction().commit();
-    }
-    
     public List<Books> bookFiltering(String name, Integer cat, Integer auth){
         String query = "";
         if((name == "" || name.trim().isEmpty() || name == null) && (cat != null || auth != null))

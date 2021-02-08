@@ -10,26 +10,35 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javax.imageio.ImageIO;
+import org.controlsfx.control.CheckComboBox;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import sorinlibraryc.Client;
 import sorinlibraryc.ErrorHandling;
+import sorinlibraryc.models.Authors;
 import sorinlibraryc.models.Books;
+import sorinlibraryc.models.Categories;
+import sorinlibraryc.models.Reservations;
+import sorinlibraryc.models.Users;
 
 /**
  *
@@ -54,9 +63,6 @@ public class AdminBookViewController implements Initializable {
     private TextField language;
     
     @FXML
-    private TextField stoc;
-    
-    @FXML
     private TextField pages;
     
     @FXML
@@ -65,8 +71,20 @@ public class AdminBookViewController implements Initializable {
     @FXML
     private ImageView img;
     
-    @FXML 
-    private Button rezerva;
+    @FXML
+    private TableView reservations;
+    
+    @FXML
+    private TableColumn<Reservations, Integer> colID;
+    
+    @FXML
+    private TableColumn<Reservations, Books> colBook;
+    
+    @FXML
+    private TableColumn<Reservations, Users> colUtilizator;
+    
+    @FXML
+    private TableColumn<Reservations, Date> colData;
     
     Client client = null;
     
@@ -77,9 +95,17 @@ public class AdminBookViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        initColumns(); 
     }    
 
+    private void initColumns()
+    {
+        colID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colBook.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+        colUtilizator.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        colData.setCellValueFactory(new PropertyValueFactory<>("date"));
+    }
+    
     public void passParameters(Books book, Client c) {
         this.eh = new ErrorHandling();
         
@@ -91,10 +117,6 @@ public class AdminBookViewController implements Initializable {
         this.categories.setText(book.getBookCategoriesCollection());
         this.language.setText(book.getLanguage());
         this.pages.setText(String.valueOf(book.getPages()));
-        this.stoc.setText(String.valueOf(book.getQuantity()));
-        
-        if(book.getQuantity() <= 0)
-            rezerva.setDisable(true);
         
         JSONObject params = new JSONObject();
         params.put("bookID", book.getId());
@@ -129,6 +151,8 @@ public class AdminBookViewController implements Initializable {
                 this.img.setImage(image);
             }
         }
+        
+        getReservations();
     }
 
     public TableView getTb() {
@@ -157,11 +181,7 @@ public class AdminBookViewController implements Initializable {
             alert.setHeaderText("Reservarea efectuata cu success !");
             alert.setContentText("Rezervarea ta a fost efectuata cu success ! Puteti sa va prezentati la librarie pentru a ridica cartea.");
             alert.showAndWait();
-            book.setQuantity(book.getQuantity()-1);
-            stoc.setText(book.getQuantity().toString());
-            tb.refresh();
-            if(book.getQuantity() <= 0)
-                rezerva.setDisable(true);            
+            tb.refresh();         
         }
         else if(response.has("error"))
         {
@@ -171,15 +191,24 @@ public class AdminBookViewController implements Initializable {
             alert.setContentText(response.get("error").toString());
             alert.showAndWait();
             tb.refresh();
-            if(book.getQuantity() <= 0)
-                rezerva.setDisable(true);
         }
-        
     }
     
-    @FXML
-    private void updateBook()
+    private void getReservations()
     {
-        book.setName(title.getText());
+        JSONObject params = new JSONObject();
+        params.put("book",this.book.getId());
+        System.out.println(params.toString());
+        JSONObject response = new JSONObject(client.sendCommand("getBookReservations", params));
+        JSONArray res = new JSONArray(response.get("reservations").toString());
+        res = res.getJSONArray(0);
+        ObservableList<Reservations> data = FXCollections.observableArrayList();
+        for(int i=0;i<res.length();i++)
+        {
+            System.out.println(res.get(i).toString());
+            Reservations rs = new Reservations(new JSONObject(res.get(i).toString()));
+            data.add(rs);
+        }
+        reservations.setItems(data);
     }
 }

@@ -30,6 +30,7 @@ import sorinlibraryc.ErrorHandling;
 import sorinlibraryc.models.Authors;
 import sorinlibraryc.models.Books;
 import sorinlibraryc.models.Categories;
+import sorinlibraryc.models.Reservations;
 
 /**
  *
@@ -45,9 +46,6 @@ public class MainAdminController implements Initializable {
     
     @FXML
     private TableColumn<Books, String> colName;
-    
-    @FXML
-    private TableColumn<Books, Integer> colStoc;
     
     @FXML
     private TableColumn<Books, String> colAuthors;
@@ -146,7 +144,6 @@ public class MainAdminController implements Initializable {
     {
         colID.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colStoc.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colAuthors.setCellValueFactory(new PropertyValueFactory<>("bookAuthorsCollection"));
         colCategories.setCellValueFactory(new PropertyValueFactory<>("bookCategoriesCollection"));
     }
@@ -194,9 +191,9 @@ public class MainAdminController implements Initializable {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     try {
                         Books rowData = row.getItem();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sorinlibraryc/views/UserBookView.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sorinlibraryc/views/AdminBookView.fxml"));
                         Parent parent = loader.load();
-                        UserBookViewController controller = loader.getController();
+                        AdminBookViewController controller = loader.getController();
                         controller.passParameters(rowData, client);
                         controller.setTb(tabView);
                         Scene scene = new Scene(parent);
@@ -204,7 +201,7 @@ public class MainAdminController implements Initializable {
                         stage.setScene(scene);
                         stage.show();
                     } catch (IOException ex) {
-                        System.out.println(ex.toString());
+                        ex.printStackTrace();
                         eh.showError("Eroare afisare carte !", "O eroare a fost intampinata in incercarea de a afisa cartea !");
                     }
                     

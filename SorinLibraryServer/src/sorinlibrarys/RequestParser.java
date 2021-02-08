@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import javafx.collections.ObservableList;
 import javax.imageio.ImageIO;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,7 +34,7 @@ import sorinlibrarys.queries.ReservationsQuery;
 public class RequestParser {
     
     private ServerThread sh;
-    
+     
     public RequestParser(ServerThread s)
     {
         sh = s;
@@ -57,6 +58,12 @@ public class RequestParser {
                 return initBookView();
             case "setReservation":
                 return setReservation(params);
+            case "getAuthors":
+                return getAuthors();
+            case "getCategories":
+                return getCategories();
+            case "getBookReservations":
+                return getBookReservations(params);
             default: 
                 return null; 
         }
@@ -99,12 +106,14 @@ public class RequestParser {
                 {
                    response.put("userRole", "");
                    response.put("error", "Incorrect password.");
+                   response.put("notifications", "");
                 }
             }
             else
             {
                 response.put("userRole", "");
                 response.put("error", "Incorrect username.");
+                response.put("notifications", "");
             }
         }
         
@@ -124,7 +133,7 @@ public class RequestParser {
         {
             Date reservationDate = r.getDate();
             LocalDateTime localDateTime = reservationDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            localDateTime.plusMonths(1);
+            localDateTime = localDateTime.plusMonths(1);
             reservationDate = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
             if(reservationDate.before(now))
             {
@@ -274,6 +283,41 @@ public class RequestParser {
            response.put("error", ""); 
         else
            response.put("error", "Rezervarea ta nu a putut fi finalizata. Daca crezi ca aceasta eroare nu ar trebui sa se intample, contacteaza administratorul.");
+        
+        return response.toString();
+    }
+    
+    private String getAuthors()
+    {
+        JSONObject obj = new JSONObject();
+        AuthorsQuery aq = new AuthorsQuery();
+        List<Authors> la = aq.listAllAuthors();
+        
+        obj.put("authors", la);
+        return obj.toString();
+    }
+    
+    private String getCategories()
+    {
+        JSONObject obj = new JSONObject();
+        CategoriesQuery cq = new CategoriesQuery();
+        List<Categories> lc = cq.listAllCategories();
+        
+        obj.put("categories", lc);
+        return obj.toString();
+    }
+    
+    private String getBookReservations(JSONObject params)
+    {
+        JSONObject response = new JSONObject();
+        BooksQuery bq = new BooksQuery();
+        Books b = bq.getBookByID(params.getInt("book"));
+        
+        ReservationsQuery rq = new ReservationsQuery();
+        List<Reservations> rs = rq.listReservationsByUserANDBook(sh.getSession(), b);
+        
+        JSONArray js = new JSONArray(rs);
+        response.append("reservations", js);
         
         return response.toString();
     }

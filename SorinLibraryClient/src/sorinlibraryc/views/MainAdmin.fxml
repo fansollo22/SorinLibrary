@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sorinlibraryc.controllers.MainAdminController">
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sorinlibraryc.controllers.MainAdminController">
     <children>
       <SplitPane dividerPositions="0.07550335570469799" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
         <items>
@@ -30,7 +30,6 @@
                       <TableColumn fx:id="colName" editable="false" prefWidth="312.0" text="Nume" />
                         <TableColumn fx:id="colAuthors" editable="false" minWidth="0.0" prefWidth="139.0" text="Autor" />
                         <TableColumn fx:id="colCategories" editable="false" minWidth="0.0" prefWidth="139.0" text="Categorie" />
-                        <TableColumn fx:id="colStoc" editable="false" minWidth="0.0" prefWidth="181.0" text="Stoc" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

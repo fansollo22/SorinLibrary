@@ -21,7 +21,6 @@ public class Books implements Serializable {
     private Collection<Reservations> reservationsCollection;
     private Integer id;
     private String name;
-    private Integer quantity;
     private String language;
     private int pages;
     private Date launchDate;
@@ -48,7 +47,6 @@ public class Books implements Serializable {
         this.id = Integer.parseInt(obj.get("id").toString());
         this.name = obj.get("name").toString();
         this.language = obj.get("language").toString();
-        this.quantity = Integer.parseInt(obj.get("quantity").toString());
         this.pages = Integer.parseInt(obj.get("pages").toString());
         String d = obj.get("launchDate").toString();
         DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
@@ -82,14 +80,6 @@ public class Books implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     public String getLanguage() {
@@ -162,7 +152,7 @@ public class Books implements Serializable {
 
     @Override
     public String toString() {
-        return "com.entities.Books[ id=" + id + " ]";
+        return name;
     }
     
     public String getReservationsCollection() {

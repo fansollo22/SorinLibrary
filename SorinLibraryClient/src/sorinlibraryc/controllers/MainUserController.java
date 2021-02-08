@@ -47,9 +47,6 @@ public class MainUserController implements Initializable {
     private TableColumn<Books, String> colName;
     
     @FXML
-    private TableColumn<Books, Integer> colStoc;
-    
-    @FXML
     private TableColumn<Books, String> colAuthors;
     
     @FXML
@@ -131,7 +128,6 @@ public class MainUserController implements Initializable {
     {
         colID.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colStoc.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colAuthors.setCellValueFactory(new PropertyValueFactory<>("bookAuthorsCollection"));
         colCategories.setCellValueFactory(new PropertyValueFactory<>("bookCategoriesCollection"));
     }
