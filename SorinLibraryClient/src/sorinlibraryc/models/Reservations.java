@@ -6,6 +6,12 @@
 package sorinlibraryc.models;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import org.json.JSONObject;
 
 /**
  *
@@ -16,8 +22,27 @@ public class Reservations implements Serializable {
     private Integer id;
     private Books bookId;
     private Users userId;
+    private Date date;
 
     public Reservations() {
+    }
+    
+    public Reservations(JSONObject obj){
+        this.id = obj.getInt("id");
+        this.bookId = new Books(new JSONObject(obj.get("bookId").toString()));
+        this.userId = new Users(new JSONObject(obj.get("userId").toString()));
+        String d = obj.getString("date");
+        DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+        Date dt;
+        try{
+           dt = formatter.parse(d); 
+        }
+        catch (Exception ex)
+        {
+            dt = new Date();
+        }
+        LocalDate ds = dt.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.date = java.sql.Date.valueOf(ds);
     }
 
     public Reservations(Integer id) {
@@ -47,6 +72,10 @@ public class Reservations implements Serializable {
     public void setUserId(Users userId) {
         this.userId = userId;
     }
+    
+    public Date getDate() {
+        return date;
+    }
 
     @Override
     public int hashCode() {
@@ -72,5 +101,4 @@ public class Reservations implements Serializable {
     public String toString() {
         return "com.entities.Reservations[ id=" + id + " ]";
     }
-    
 }

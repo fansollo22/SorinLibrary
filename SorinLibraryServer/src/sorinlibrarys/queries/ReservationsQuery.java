@@ -39,6 +39,10 @@ public class ReservationsQuery {
         return em.createNamedQuery("Reservations.findByUserID", Reservations.class).setParameter("userId", userID).getResultList();
     }
     
+    public List<Reservations> listReservationsByUserANDBook(Users user, Books book){
+        return em.createNamedQuery("Reservations.findByUserANDBook", Reservations.class).setParameter("userId", user).setParameter("bookId", book).getResultList();
+    }
+    
     public boolean insertReservation(Books book, Users user){
       try {
         Reservations rs = new Reservations();
@@ -48,8 +52,6 @@ public class ReservationsQuery {
         rs.setDate(now);
         em.persist(rs);
         em.getTransaction().commit();
-        BooksQuery bs = new BooksQuery();
-        bs.reduceBookStock(book);
         
         return true;
       }

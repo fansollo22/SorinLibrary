@@ -41,7 +41,7 @@ public class Client {
     
     private void serverConnect() throws UnknownHostException
     {
-        InetAddress address = InetAddress.getByName(ip);
+        address = InetAddress.getByName(ip);
 
         try {
             s1=new Socket(address, port); // You can use static final constant PORT_NUM

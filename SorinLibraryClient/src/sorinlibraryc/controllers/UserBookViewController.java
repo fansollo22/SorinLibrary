@@ -54,9 +54,6 @@ public class UserBookViewController implements Initializable {
     private TextField language;
     
     @FXML
-    private TextField stoc;
-    
-    @FXML
     private TextField pages;
     
     @FXML
@@ -64,9 +61,6 @@ public class UserBookViewController implements Initializable {
     
     @FXML
     private ImageView img;
-    
-    @FXML 
-    private Button rezerva;
     
     Client client = null;
     
@@ -91,10 +85,6 @@ public class UserBookViewController implements Initializable {
         this.categories.setText(book.getBookCategoriesCollection());
         this.language.setText(book.getLanguage());
         this.pages.setText(String.valueOf(book.getPages()));
-        this.stoc.setText(String.valueOf(book.getQuantity()));
-        
-        if(book.getQuantity() <= 0)
-            rezerva.setDisable(true);
         
         JSONObject params = new JSONObject();
         params.put("bookID", book.getId());
@@ -157,11 +147,7 @@ public class UserBookViewController implements Initializable {
             alert.setHeaderText("Reservarea efectuata cu success !");
             alert.setContentText("Rezervarea ta a fost efectuata cu success ! Puteti sa va prezentati la librarie pentru a ridica cartea.");
             alert.showAndWait();
-            book.setQuantity(book.getQuantity()-1);
-            stoc.setText(book.getQuantity().toString());
-            tb.refresh();
-            if(book.getQuantity() <= 0)
-                rezerva.setDisable(true);            
+            tb.refresh();         
         }
         else if(response.has("error"))
         {
@@ -171,41 +157,6 @@ public class UserBookViewController implements Initializable {
             alert.setContentText(response.get("error").toString());
             alert.showAndWait();
             tb.refresh();
-            if(book.getQuantity() <= 0)
-                rezerva.setDisable(true);
         }
-        
-        
-//        Preferences userPreferences = Preferences.userRoot();
-//        String userID = userPreferences.get("user_id", "");
-//        LoginQuery query = new LoginQuery();
-//        
-//        Users u = query.getUserById(Integer.parseInt(userID));
-//        
-//        ReservationsQuery rq = new ReservationsQuery();
-//        boolean result = rq.insertReservation(book, u);
-//        
-//        if(result)
-//        {
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.setTitle("Success !");
-//            alert.setHeaderText("Reservarea efectuata cu success !");
-//            alert.setContentText("Rezervarea ta a fost efectuata cu success ! Puteti sa va prezentati la librarie pentru a ridica cartea.");
-//            alert.showAndWait();
-//            tb.refresh();
-//            if(book.getQuantity() <= 0)
-//                rezerva.setDisable(true);
-//        }
-//        else
-//        {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Eroare !");
-//            alert.setHeaderText("Reservarea ta nu a putut fi finalizata !");
-//            alert.setContentText("Rezervarea ta nu a putut fi finalizata. Daca crezi ca aceasta eroare nu ar trebui sa se intample, contacteaza administratorul.");
-//            alert.showAndWait();
-//            tb.refresh();
-//             if(book.getQuantity() <= 0)
-//                rezerva.setDisable(true);
-//        }
     }
 }

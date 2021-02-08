@@ -6,6 +6,8 @@
 package sorinlibrarys.entities;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -24,6 +26,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.json.JSONObject;
 
 /**
  *
@@ -36,7 +39,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Books.findAll", query = "SELECT b FROM Books b")
     , @NamedQuery(name = "Books.findById", query = "SELECT b FROM Books b WHERE b.id = :id")
     , @NamedQuery(name = "Books.findByName", query = "SELECT b FROM Books b WHERE b.name = :name")
-    , @NamedQuery(name = "Books.findByQuantity", query = "SELECT b FROM Books b WHERE b.quantity = :quantity")
     , @NamedQuery(name = "Books.findByLanguage", query = "SELECT b FROM Books b WHERE b.language = :language")
     , @NamedQuery(name = "Books.findByPages", query = "SELECT b FROM Books b WHERE b.pages = :pages")
     , @NamedQuery(name = "Books.findByLaunchDate", query = "SELECT b FROM Books b WHERE b.launchDate = :launchDate")
@@ -55,8 +57,6 @@ public class Books implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @Column(name = "quantity")
-    private Integer quantity;
     @Basic(optional = false)
     @Column(name = "language")
     private String language;
@@ -89,6 +89,7 @@ public class Books implements Serializable {
         this.launchDate = launchDate;
     }
 
+
     public Integer getId() {
         return id;
     }
@@ -104,15 +105,7 @@ public class Books implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
+    
     public String getLanguage() {
         return language;
     }

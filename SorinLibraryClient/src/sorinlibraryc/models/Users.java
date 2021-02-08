@@ -6,6 +6,7 @@
 package sorinlibraryc.models;
 
 import java.io.Serializable;
+import org.json.JSONObject;
 
 /**
  *
@@ -31,6 +32,14 @@ public class Users implements Serializable {
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
+    }
+    
+    public Users(JSONObject obj) {
+        this.id = obj.getInt("id");
+        this.isAdmin = obj.getInt("isAdmin");
+        this.username = obj.getString("username");
+        this.password = obj.getString("password");
+        this.name = obj.getString("name");
     }
 
     public Integer getId() {
@@ -94,6 +103,6 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Users[ id=" + id + " ]";
+        return name;
     }
 }
