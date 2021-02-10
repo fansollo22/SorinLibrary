@@ -16,32 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `book_categories`
+-- Table structure for table `reviews`
 --
 
-DROP TABLE IF EXISTS `book_categories`;
+DROP TABLE IF EXISTS `reviews`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `book_categories` (
+CREATE TABLE `reviews` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `book_id` int NOT NULL,
-  `category_id` int NOT NULL,
+  `bookid` int NOT NULL,
+  `userid` int NOT NULL,
+  `review` varchar(300) DEFAULT NULL,
+  `rating` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `book_cat_idx` (`category_id`),
-  KEY `book_book_idx` (`book_id`),
-  CONSTRAINT `book_book` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
-  CONSTRAINT `book_cat` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `reviewbook_idx` (`bookid`),
+  KEY `reviewuser_idx` (`userid`),
+  CONSTRAINT `reviewbook` FOREIGN KEY (`bookid`) REFERENCES `books` (`id`),
+  CONSTRAINT `reviewuser` FOREIGN KEY (`userid`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `book_categories`
+-- Dumping data for table `reviews`
 --
 
-LOCK TABLES `book_categories` WRITE;
-/*!40000 ALTER TABLE `book_categories` DISABLE KEYS */;
-INSERT INTO `book_categories` VALUES (1,1,1),(2,2,2),(3,2,1),(4,3,3);
-/*!40000 ALTER TABLE `book_categories` ENABLE KEYS */;
+LOCK TABLES `reviews` WRITE;
+/*!40000 ALTER TABLE `reviews` DISABLE KEYS */;
+INSERT INTO `reviews` VALUES (1,1,2,'O carte horror foarte buna. Stephen King a capturat foarte bine esenta hotelului Stanley si izolarea lui.',5);
+/*!40000 ALTER TABLE `reviews` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

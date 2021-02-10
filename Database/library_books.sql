@@ -25,13 +25,12 @@ DROP TABLE IF EXISTS `books`;
 CREATE TABLE `books` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
-  `quantity` int DEFAULT '0',
   `language` varchar(45) NOT NULL,
   `pages` int NOT NULL,
   `launch_date` date NOT NULL,
   `img` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +39,7 @@ CREATE TABLE `books` (
 
 LOCK TABLES `books` WRITE;
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
-INSERT INTO `books` VALUES (1,'The Shining',0,'Engleza',447,'1977-01-28','D:\\ProiectLibraryJavaGIT\\java-library\\JavaLibrary\\src\\covers\\Shiningnovel.jpg'),(3,'Don Quixote',3,'Romana',863,'1605-01-01',NULL),(4,'Moby Dick',3,'Romana',378,'1851-10-18',NULL);
+INSERT INTO `books` VALUES (1,'The Shining','Engleza',447,'1977-01-28','D:\\ProiectLibraryJavaGIT\\SorinLibrary\\SorinLibraryServer\\images\\2021-02-11 00-10-50-904.jpg'),(2,'IT','Engleza',1138,'1986-09-15','D:\\ProiectLibraryJavaGIT\\SorinLibrary\\SorinLibraryServer\\images\\2021-02-11 00-12-14-308.jpg'),(3,'La tiganci','Romana',176,'1963-01-01','D:\\ProiectLibraryJavaGIT\\SorinLibrary\\SorinLibraryServer\\images\\2021-02-11 00-16-12-632.jpeg');
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-11 23:00:11
+-- Dump completed on 2021-02-11  1:08:06

@@ -31,7 +31,7 @@ CREATE TABLE `book_authors` (
   KEY `author_id_idx` (`author_id`),
   CONSTRAINT `author_book_id` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`),
   CONSTRAINT `book_id` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `book_authors` (
 
 LOCK TABLES `book_authors` WRITE;
 /*!40000 ALTER TABLE `book_authors` DISABLE KEYS */;
-INSERT INTO `book_authors` VALUES (1,1,1),(3,3,2),(4,4,3);
+INSERT INTO `book_authors` VALUES (1,1,1),(2,2,1),(3,3,2);
 /*!40000 ALTER TABLE `book_authors` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-11 23:00:11
+-- Dump completed on 2021-02-11  1:08:06

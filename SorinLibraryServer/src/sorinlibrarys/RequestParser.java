@@ -401,27 +401,16 @@ public class RequestParser {
             {
                 img[i] = Byte.parseByte(imgArray.get(i).toString());
             }
-            
-            File folder = new File(System.getProperty("user.dir")+"\\"+"images"+"\\");
-            if(!folder.exists())
-            {
-                try{
-                    folder.createNewFile();
-                }
-                catch(IOException ex){
-                    ex.printStackTrace();
-                    response.put("warning", "Nu pot creea folder-ul pentru imagini ! Imaginea nu a fost salvata !");
-                }
-            }
                 
-            String fileName = new Timestamp(System.currentTimeMillis()).toString().replace(':', '-');
-            String filePath = System.getProperty("user.dir")+"\\images\\"+fileName+"."+imgExt;
-            Path path = Paths.get(filePath);
+            String fileName = new Timestamp(System.currentTimeMillis()).toString().replace(':', '-').replace('.','-');
+            String filePath = System.getProperty("user.dir")+"\\images\\";
+            String fullPath = filePath+fileName+"."+imgExt;
+            Path path = Paths.get(fullPath);
             try{
-                File imageObj = new File(fileName);
-                imageObj.createNewFile();
+                File imageObj = new File(filePath);
+                imageObj.mkdirs();
                 Files.write(path, img);
-                b.setImg(filePath);
+                b.setImg(fullPath);
             }
             catch(IOException ex){
                 ex.printStackTrace();

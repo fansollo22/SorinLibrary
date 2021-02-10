@@ -57,7 +57,9 @@ public class LoginController {
         JSONObject response = new JSONObject(client.sendCommand("login", params));
         String error = response.get("error").toString();
         String answer = response.get("userRole").toString();
-        JSONArray notifications = new JSONArray(response.get("notifications").toString());
+        JSONArray notifications = new JSONArray();
+        if(!response.get("notifications").toString().equals(""))
+            notifications = new JSONArray(response.get("notifications").toString());
         
         if(error.equals(""))
         {
@@ -84,7 +86,7 @@ public class LoginController {
                 stage.setTitle("User - SorinLibrary");
                 stage.setScene(scene);
                 MainAdminController controller = loader.getController();
-                controller.passConnection(this.client, notifications);
+                controller.passConnection(this.client, notifications, controller);
                 stage.show(); 
                 Stage oldStage = (Stage) message.getScene().getWindow();
                 oldStage.close();

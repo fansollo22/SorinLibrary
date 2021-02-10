@@ -13,6 +13,7 @@ import java.net.URL;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.animation.Animation.Status;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -22,6 +23,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Control;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -29,6 +32,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import org.json.JSONArray;
@@ -123,6 +128,27 @@ public class AdminBookViewController implements Initializable {
         colReview.setCellValueFactory(new PropertyValueFactory<>("review"));
         colReviewUser.setCellValueFactory(new PropertyValueFactory<>("userid"));
         colReviewRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        
+        colReview.setCellFactory(param -> {
+            return new TableCell<Reviews, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        this.setText(null);
+                        this.setStyle("");
+                    } else {
+                        Text text = new Text(item);
+                        text.setStyle("-fx-padding: 5px 25px 5px 5px;"
+                                + "-fx-text-alignment:justify;");
+                        text.wrappingWidthProperty().bind(getTableColumn().widthProperty().subtract(35));
+                        this.setPrefHeight(text.getLayoutBounds().getHeight()+10);
+                        this.setGraphic(text);
+                    }
+                }
+            };
+        });
     }
     
     public void passParameters(Books book, Client c, AdminBookViewController controller) 

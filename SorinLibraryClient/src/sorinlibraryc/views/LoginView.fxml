@@ -8,16 +8,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="298.0" prefWidth="320" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sorinlibraryc.controllers.LoginController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="320" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sorinlibraryc.controllers.LoginController">
     <children>
         <Label fx:id="message" alignment="CENTER" layoutX="82.0" layoutY="149.0" prefHeight="17.0" textFill="RED" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="60.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="60.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="162.78787994384766" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="14.0">
          <image>
             <Image url="@../resources/logo.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="username" layoutX="86.0" layoutY="182.0" promptText="Nume utilizator" />
-      <PasswordField fx:id="password" layoutX="86.0" layoutY="217.0" promptText="Parola" />
-      <Button alignment="CENTER" layoutX="134.0" layoutY="259.0" mnemonicParsing="false" onAction="#login" text="Logare" />
+      <TextField fx:id="username" layoutX="86.0" layoutY="182.0" promptText="Nume utilizator" AnchorPane.bottomAnchor="91.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="182.0" />
+      <PasswordField fx:id="password" layoutX="86.0" layoutY="217.0" promptText="Parola" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="217.0" />
+      <Button alignment="CENTER" layoutX="134.0" layoutY="259.0" mnemonicParsing="false" onAction="#login" text="Logare" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="133.0" AnchorPane.topAnchor="259.0" />
     </children>
 </AnchorPane>

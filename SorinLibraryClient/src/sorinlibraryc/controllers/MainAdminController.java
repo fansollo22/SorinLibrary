@@ -68,6 +68,8 @@ public class MainAdminController implements Initializable {
     
     JSONArray notifications = null;
     
+    MainAdminController thisController;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
@@ -219,7 +221,7 @@ public class MainAdminController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sorinlibraryc/views/AddBookView.fxml"));
         Parent parent = loader.load();
         AddBookViewController controller = loader.getController();
-        controller.passParameters(client);
+        controller.passParameters(client, thisController);
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
         stage.setTitle("Adauga carte");
@@ -227,10 +229,11 @@ public class MainAdminController implements Initializable {
         stage.show();
     }
     
-    public void passConnection(Client c, JSONArray j)
+    public void passConnection(Client c, JSONArray j, MainAdminController ctrl)
     {
         client = c;
         notifications = j;
+        thisController = ctrl; 
         showNotifications();
         initTable();
         eh = new ErrorHandling();
