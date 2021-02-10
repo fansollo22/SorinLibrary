@@ -34,7 +34,8 @@ public class Users implements Serializable {
         this.isAdmin = isAdmin;
     }
     
-    public Users(JSONObject obj) {
+    public Users(JSONObject obj) 
+    {
         this.id = obj.getInt("id");
         this.isAdmin = obj.getInt("isAdmin");
         this.username = obj.getString("username");

@@ -68,7 +68,8 @@ public class MainUserController implements Initializable {
     JSONArray notifications = null;
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
         initColumns();
         initRowEvent();
     }
@@ -184,22 +185,26 @@ public class MainUserController implements Initializable {
     
     private void initRowEvent()
     {
-        tabView.setRowFactory( tv -> {
+        tabView.setRowFactory( tv -> 
+        {
             TableRow<Books> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    try {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) 
+                {
+                    try 
+                    {
                         Books rowData = row.getItem();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sorinlibraryc/views/UserBookView.fxml"));
                         Parent parent = loader.load();
                         UserBookViewController controller = loader.getController();
-                        controller.passParameters(rowData, client);
+                        controller.passParameters(rowData, client, controller);
                         controller.setTb(tabView);
                         Scene scene = new Scene(parent);
                         Stage stage = new Stage();
                         stage.setScene(scene);
                         stage.show();
-                    } catch (IOException ex) {
+                    } catch (IOException ex) 
+                    {
                         System.out.println(ex.toString());
                         eh.showError("Eroare afisare carte !", "O eroare a fost intampinata in incercarea de a afisa cartea !");
                     }

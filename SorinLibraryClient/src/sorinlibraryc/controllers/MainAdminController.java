@@ -69,7 +69,8 @@ public class MainAdminController implements Initializable {
     JSONArray notifications = null;
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
         initColumns();
         initRowEvent();
     }
@@ -194,10 +195,11 @@ public class MainAdminController implements Initializable {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sorinlibraryc/views/AdminBookView.fxml"));
                         Parent parent = loader.load();
                         AdminBookViewController controller = loader.getController();
-                        controller.passParameters(rowData, client);
+                        controller.passParameters(rowData, client, controller);
                         controller.setTb(tabView);
                         Scene scene = new Scene(parent);
                         Stage stage = new Stage();
+                        stage.setTitle(rowData.getName());
                         stage.setScene(scene);
                         stage.show();
                     } catch (IOException ex) {
@@ -212,9 +214,17 @@ public class MainAdminController implements Initializable {
     }
     
     @FXML
-    private void addBookView()
+    private void addBookView() throws IOException
     {
-        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sorinlibraryc/views/AddBookView.fxml"));
+        Parent parent = loader.load();
+        AddBookViewController controller = loader.getController();
+        controller.passParameters(client);
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.setTitle("Adauga carte");
+        stage.setScene(scene);
+        stage.show();
     }
     
     public void passConnection(Client c, JSONArray j)

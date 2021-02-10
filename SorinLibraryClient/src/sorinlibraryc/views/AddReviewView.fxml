@@ -5,24 +5,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.collections.FXCollections?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="sorinlibraryc.controllers.AddReviewViewController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sorinlibraryc.controllers.AddReviewViewController">
    <children>
-      <TextArea layoutX="14.0" layoutY="50.0" prefHeight="302.0" prefWidth="571.0" />
-      <Button layoutX="527.0" layoutY="361.0" mnemonicParsing="false" text="Adauga" />
-      <Label layoutX="22.0" layoutY="14.0" prefHeight="17.0" prefWidth="57.0" text="Rating :" />
-      <ComboBox layoutX="67.0" layoutY="10.0" prefWidth="150.0" >
-          <items>
-           <FXCollections fx:factory="observableArrayList">
-            <String fx:value="1" />
-            <String fx:value="2" />
-            <String fx:value="3" />
-            <String fx:value="4" />
-            <String fx:value="5" />
-           </FXCollections>
-          </items>
-      </ComboBox>
+      <TextArea fx:id="review" layoutX="14.0" layoutY="50.0" prefHeight="302.0" prefWidth="571.0" />
+      <Button layoutX="527.0" layoutY="361.0" mnemonicParsing="false" onAction="#publishReview" text="Adauga" />
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="57.0" text="Rating :" />
+      <ComboBox fx:id="rating" layoutX="58.0" layoutY="10.0" prefHeight="25.0" prefWidth="120.0" promptText="Selecteaza..." />
+      <Label fx:id="message" layoutX="14.0" layoutY="353.0" text="Max 300 characters." />
    </children>
 </AnchorPane>

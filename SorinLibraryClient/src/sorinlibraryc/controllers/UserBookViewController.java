@@ -14,22 +14,32 @@ import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import sorinlibraryc.Client;
 import sorinlibraryc.ErrorHandling;
 import sorinlibraryc.models.Books;
+import sorinlibraryc.models.Reviews;
+import sorinlibraryc.models.Users;
 
 /**
  *
@@ -62,19 +72,41 @@ public class UserBookViewController implements Initializable {
     @FXML
     private ImageView img;
     
+    @FXML
+    private TableView reviews;
+    
+    @FXML
+    private TableColumn<Reviews, Integer> colReviewID;
+    
+    @FXML
+    private TableColumn<Reviews, String> colReview;
+    
+    @FXML
+    private TableColumn<Reviews, Users> colReviewUser;
+    
+    @FXML
+    private TableColumn<Reviews, Integer> colReviewRating;
+    
     Client client = null;
     
     ErrorHandling eh = null;
+    
+    UserBookViewController thisController;
     
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    public void initialize(URL url, ResourceBundle rb) 
+    {
+        colReviewID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colReview.setCellValueFactory(new PropertyValueFactory<>("review"));
+        colReviewUser.setCellValueFactory(new PropertyValueFactory<>("userid"));
+        colReviewRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
     }    
 
-    public void passParameters(Books book, Client c) {
+    public void passParameters(Books book, Client c, UserBookViewController controller) 
+    {
         this.eh = new ErrorHandling();
         
         this.client = c;
@@ -85,6 +117,7 @@ public class UserBookViewController implements Initializable {
         this.categories.setText(book.getBookCategoriesCollection());
         this.language.setText(book.getLanguage());
         this.pages.setText(String.valueOf(book.getPages()));
+        this.thisController = controller;
         
         JSONObject params = new JSONObject();
         params.put("bookID", book.getId());
@@ -119,18 +152,22 @@ public class UserBookViewController implements Initializable {
                 this.img.setImage(image);
             }
         }
+        getReviews();
     }
 
-    public TableView getTb() {
+    public TableView getTb() 
+    {
         return tb;
     }
 
-    public void setTb(TableView tb) {
+    public void setTb(TableView tb) 
+    {
         this.tb = tb;
     }
     
     @FXML
-    private void reserveBook(){
+    private void reserveBook()
+    {
         
         JSONObject params = new JSONObject();
         String user = client.getSession();
@@ -158,5 +195,37 @@ public class UserBookViewController implements Initializable {
             alert.showAndWait();
             tb.refresh();
         }
+    }
+    
+    public void getReviews()
+    {
+        JSONObject params = new JSONObject();
+        params.put("book",this.book.getId());
+        JSONObject response = new JSONObject(client.sendCommand("getBookReviews", params));
+        JSONArray res = new JSONArray(response.get("reviews").toString());
+        res = res.getJSONArray(0);
+        ObservableList<Reviews> data = FXCollections.observableArrayList();
+        for(int i=0;i<res.length();i++)
+        {
+            System.out.println(res.get(i).toString());
+            Reviews rs = new Reviews(new JSONObject(res.get(i).toString()));
+            data.add(rs);
+        }
+        System.out.println(data);
+        reviews.setItems(data);
+    }
+    
+    @FXML
+    private void startReview() throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sorinlibraryc/views/AddReviewView.fxml"));
+        Parent parent = loader.load();
+        AddReviewViewController controller = loader.getController();
+        controller.passParameters(book, client, null,thisController);
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.setTitle("Review carte - "+book.getName());
+        stage.setScene(scene);
+        stage.show();
     }
 }

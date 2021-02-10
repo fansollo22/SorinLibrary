@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="521.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sorinlibraryc.controllers.AddBookViewController">
+    <children>
+      <HBox alignment="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="262.0" prefWidth="494.0">
+         <children>
+            <ImageView fx:id="img" fitHeight="247.0" fitWidth="247.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/book-default-cover.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <SplitPane dividerPositions="0.1541095890410959" layoutX="14.0" layoutY="284.0" orientation="VERTICAL" prefHeight="294.0" prefWidth="494.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="38.0" prefWidth="492.0">
+               <children>
+                  <Button layoutX="73.0" layoutY="7.0" mnemonicParsing="false" onAction="#sendBook" text="Salveaza" />
+                  <Button layoutX="314.0" layoutY="7.0" mnemonicParsing="false" onAction="#uploadCover" text="Incarca coperta" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="235.0" prefWidth="492.0">
+               <children>
+                  <TextField fx:id="bookTitle" layoutX="21.0" layoutY="26.0" prefHeight="25.0" prefWidth="190.0" />
+                  <TextField fx:id="language" layoutX="275.0" layoutY="26.0" prefWidth="190.0" />
+                  <Label layoutX="21.0" layoutY="4.0" prefHeight="17.0" prefWidth="190.0" text="Titlul cartii" textAlignment="CENTER" />
+                  <Label layoutX="25.0" layoutY="55.0" prefHeight="17.0" prefWidth="190.0" text="Lansare" textAlignment="CENTER" />
+                  <Label layoutX="277.0" layoutY="108.0" prefHeight="17.0" prefWidth="190.0" text="Autori" />
+                  <Label layoutX="275.0" layoutY="6.0" prefHeight="17.0" prefWidth="190.0" text="Limba" />
+                  <TextField fx:id="pages" layoutX="277.0" layoutY="77.0" prefHeight="25.0" prefWidth="190.0" />
+                  <Label layoutX="275.0" layoutY="55.0" prefHeight="17.0" prefWidth="190.0" text="Numar pagini" />
+                  <Label layoutX="27.0" layoutY="108.0" prefHeight="17.0" prefWidth="190.0" text="Categorii" />
+                  <DatePicker fx:id="launchDate" layoutX="23.0" layoutY="77.0" prefHeight="25.0" prefWidth="190.0" />
+                  <TextArea fx:id="categories" layoutX="26.0" layoutY="128.0" prefHeight="73.0" prefWidth="190.0" />
+                  <TextArea fx:id="authors" layoutX="277.0" layoutY="128.0" prefHeight="73.0" prefWidth="190.0" />
+                  <Label layoutX="26.0" layoutY="201.0" prefHeight="17.0" prefWidth="190.0" text="Introduceti categoriile separate de virgula.">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="277.0" layoutY="201.0" prefHeight="17.0" prefWidth="190.0" text="Introduceti autorii separati de virgula.">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

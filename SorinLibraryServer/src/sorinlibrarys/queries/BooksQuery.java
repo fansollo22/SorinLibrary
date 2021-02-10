@@ -33,6 +33,14 @@ public class BooksQuery {
        return em.createNamedQuery("Books.findById",Books.class).setParameter("id", ID).getSingleResult();
     }
     
+    public Books getBookByName(String name) {
+        return em.createNamedQuery("Books.findByName", Books.class).setParameter("name", name).getSingleResult();
+    }
+    
+    public List<Books> checkIfBookExists(String name){
+        return em.createNamedQuery("Books.findByName", Books.class).setParameter("name", name).getResultList();
+    }
+    
     public List<Books> listAllBooks() {
         return em.createNamedQuery("Books.findAll",Books.class).getResultList();
     }
@@ -59,5 +67,18 @@ public class BooksQuery {
         else if(auth != null)
             query += " b.id IN (SELECT ba.bookId.id FROM BookAuthors ba WHERE ba.authorId.id ="+String.valueOf(auth)+")";
         return em.createQuery(query, Books.class).getResultList();
+    }
+    
+    public Books insertBook(Books b) 
+    {
+        try {
+            em.persist(b);
+            em.getTransaction().commit();
+            return b;
+        }
+        catch(Exception e) {
+            System.out.println(e.toString());
+            return null;
+        } 
     }
 }

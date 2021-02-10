@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import sorinlibrarys.entities.Authors;
 
 /**
  *
@@ -29,5 +30,20 @@ public class CategoriesQuery {
     
     public List<Categories> listAllCategories() {
         return em.createNamedQuery("Categories.findAll",Categories.class).getResultList();
+    }
+    
+    public Categories insertCategories(String name){
+      try {
+        Categories rs = new Categories();
+        rs.setCategory(name);
+        em.persist(rs);
+        em.getTransaction().commit();
+        
+        return rs;
+      }
+      catch(Exception e) {
+        System.out.println(e.toString());
+        return null;
+      } 
     }
 }
