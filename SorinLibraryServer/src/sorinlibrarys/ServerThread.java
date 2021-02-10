@@ -68,21 +68,20 @@ public class ServerThread extends Thread {
         {    
             try
             {
-                if (is != null){
+                if (is != null)
                     is.close(); 
-                }
-                if(os != null){
+                
+                if(os != null)
                     os.close();
-                }
-                if (s != null){
+                
+                if (s != null)
                     s.close();
-                }
             }
             catch(IOException ie)
             {
                 System.out.println("Socket Close Error");
             }
-        }//end finally
+        }
     }
     
     private String decodeMessage(String message)

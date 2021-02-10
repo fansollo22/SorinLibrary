@@ -52,7 +52,6 @@ public class ReservationsQuery {
         rs.setDate(now);
         em.persist(rs);
         em.getTransaction().commit();
-        
         return true;
       }
       catch(Exception e) {

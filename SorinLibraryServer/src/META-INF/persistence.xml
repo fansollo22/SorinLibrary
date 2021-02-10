@@ -10,6 +10,8 @@
     <class>sorinlibrarys.entities.Users</class>
     <class>sorinlibrarys.entities.Reservations</class>
     <class>sorinlibrarys.entities.Notifications</class>
+    <class>sorinlibrarys.entities.Reviews</class>
+    <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/library"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

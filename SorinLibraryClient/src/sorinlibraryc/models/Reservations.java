@@ -20,7 +20,6 @@ import org.json.JSONObject;
 public class Reservations implements Serializable {
 
     private Integer id;
-    private Books bookId;
     private Users userId;
     private Date date;
 
@@ -29,7 +28,6 @@ public class Reservations implements Serializable {
     
     public Reservations(JSONObject obj){
         this.id = obj.getInt("id");
-        this.bookId = new Books(new JSONObject(obj.get("bookId").toString()));
         this.userId = new Users(new JSONObject(obj.get("userId").toString()));
         String d = obj.getString("date");
         DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
@@ -55,14 +53,6 @@ public class Reservations implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Books getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(Books bookId) {
-        this.bookId = bookId;
     }
 
     public Users getUserId() {

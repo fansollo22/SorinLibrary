@@ -23,11 +23,14 @@ public class SorinLibraryClient extends Application {
     ErrorHandling eh = null;
     
     @Override
-    public void start(Stage stage) throws Exception{
+    public void start(Stage stage) throws Exception
+    {
         eh = new ErrorHandling();
-        try {
+        try 
+        {
             c = new Client();
-        } catch (UnknownHostException ex) {
+        } catch (UnknownHostException ex) 
+        {
             eh.showError("Eroare necunoscuta !", "Aplicatia a intampinat o eroare la pornire !");
         }
 
@@ -43,7 +46,8 @@ public class SorinLibraryClient extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException, UnknownHostException, ClassNotFoundException, InterruptedException {
+    public static void main(String[] args) throws IOException, UnknownHostException, ClassNotFoundException, InterruptedException 
+    {
         launch(args);
     }
     

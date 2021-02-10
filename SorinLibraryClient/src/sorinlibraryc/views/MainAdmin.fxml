@@ -19,7 +19,7 @@
                   <ComboBox fx:id="autFilter" layoutX="179.0" layoutY="9.0" prefWidth="150.0" promptText="Autori" />
                   <TextField fx:id="nameFilter" layoutX="348.0" layoutY="9.0" promptText="Cauta dupa titlu..." />
                   <Button layoutX="508.0" layoutY="9.0" mnemonicParsing="false" onAction="#resetFilters" text="Reseteaza" AnchorPane.rightAnchor="219.0" />
-                  <Button layoutX="699.0" layoutY="9.0" mnemonicParsing="false" text="Adauga Carte" />
+                  <Button layoutX="699.0" layoutY="9.0" mnemonicParsing="false" onAction="#addBookView" text="Adauga Carte" AnchorPane.rightAnchor="10.0" />
                </children>
             </AnchorPane>
           <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="578.0" prefWidth="796.0">

@@ -5,21 +5,23 @@
  */
 package sorinlibrarys.queries;
 
-import sorinlibrarys.entities.Authors;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import sorinlibrarys.entities.Books;
+import sorinlibrarys.entities.Reviews;
+import sorinlibrarys.entities.Users;
 
 /**
  *
  * @author Flagster
  */
-public class AuthorsQuery {
+public class ReviewsQuery {
     EntityManager em;
     EntityManagerFactory emf;
 
-    public AuthorsQuery() {
+    public ReviewsQuery() {
         
         emf = Persistence.createEntityManagerFactory("SorinLibraryServerPU");
         em = emf.createEntityManager();
@@ -27,22 +29,30 @@ public class AuthorsQuery {
         em.getTransaction().begin();
     }
     
-    public List<Authors> listAllAuthors() {
-        return em.createNamedQuery("Authors.findAll",Authors.class).getResultList();
+    public List<Reviews> listReviews() {
+        return em.createNamedQuery("Reviews.findAll",Reviews.class).getResultList();
     }
     
-    public Authors insertAuthors(String name){
+    public List<Reviews> listReviewsByBook(Books book) {
+        return em.createNamedQuery("Reviews.findByBook", Reviews.class).setParameter("bookid", book).getResultList();
+    }
+    
+    public boolean insertReview(Books book, Users user, String review, String rating){
       try {
-        Authors rs = new Authors();
-        rs.setName(name);
+        Reviews rs = new Reviews();
+        Integer rat = Integer.parseInt(rating);
+        rs.setBookid(book);
+        rs.setRating(rat);
+        rs.setReview(review);
+        rs.setUserid(user);
         em.persist(rs);
         em.getTransaction().commit();
         
-        return rs;
+        return true;
       }
       catch(Exception e) {
         System.out.println(e.toString());
-        return null;
+        return false;
       } 
     }
 }

@@ -34,7 +34,8 @@ public class Client {
     PrintWriter os = null;
     ErrorHandling eh = null;
     
-    public Client() throws UnknownHostException{
+    public Client() throws UnknownHostException
+    {
         eh = new ErrorHandling();
         serverConnect();
     }
@@ -43,7 +44,8 @@ public class Client {
     {
         address = InetAddress.getByName(ip);
 
-        try {
+        try 
+        {
             s1=new Socket(address, port); // You can use static final constant PORT_NUM
             is=new BufferedReader(new InputStreamReader(s1.getInputStream()));
             os= new PrintWriter(s1.getOutputStream());
@@ -80,15 +82,14 @@ public class Client {
     {
         try
         {
-            if (is != null){
+            if (is != null)
                 is.close(); 
-            }
-            if(os != null){
+
+            if(os != null)
                 os.close();
-            }
-            if (s1 != null){
+            
+            if (s1 != null)
                 s1.close();
-            }
         }
         catch(IOException e)
         {

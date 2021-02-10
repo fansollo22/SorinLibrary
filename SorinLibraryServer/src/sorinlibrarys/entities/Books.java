@@ -45,6 +45,9 @@ import org.json.JSONObject;
     , @NamedQuery(name = "Books.findByImg", query = "SELECT b FROM Books b WHERE b.img = :img")})
 public class Books implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookid")
+    private Collection<Reviews> reviewsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookId")
     private Collection<Reservations> reservationsCollection;
 
@@ -88,7 +91,6 @@ public class Books implements Serializable {
         this.pages = pages;
         this.launchDate = launchDate;
     }
-
 
     public Integer getId() {
         return id;
@@ -216,4 +218,13 @@ public class Books implements Serializable {
     public void setReservationsCollection(Collection<Reservations> reservationsCollection) {
         this.reservationsCollection = reservationsCollection;
     } 
+
+    @XmlTransient
+    public String getReviewsCollection() {
+        return "";
+    }
+
+    public void setReviewsCollection(Collection<Reviews> reviewsCollection) {
+        this.reviewsCollection = reviewsCollection;
+    }
 }

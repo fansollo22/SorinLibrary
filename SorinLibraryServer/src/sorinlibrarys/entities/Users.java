@@ -35,6 +35,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
     , @NamedQuery(name = "Users.findByIsAdmin", query = "SELECT u FROM Users u WHERE u.isAdmin = :isAdmin")})
 public class Users implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Reservations> reservationsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userid")
+    private Collection<Reviews> reviewsCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -130,5 +135,23 @@ public class Users implements Serializable {
     @Override
     public String toString() {
         return "entities.Users[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public String getReservationsCollection() {
+        return "";
+    }
+
+    public void setReservationsCollection(Collection<Reservations> reservationsCollection) {
+        this.reservationsCollection = reservationsCollection;
+    }
+
+    @XmlTransient
+    public String getReviewsCollection() {
+        return "";
+    }
+
+    public void setReviewsCollection(Collection<Reviews> reviewsCollection) {
+        this.reviewsCollection = reviewsCollection;
     }
 }
