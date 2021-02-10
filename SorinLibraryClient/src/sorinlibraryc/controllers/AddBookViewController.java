@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -21,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import org.json.JSONObject;
 import sorinlibraryc.Client;
@@ -59,9 +62,22 @@ public class AddBookViewController implements Initializable {
     URI imgURI = null;
     
     String imgExt = null;
+    
+    MainAdminController ctrl;
        
     @Override
-    public void initialize(URL url, ResourceBundle rb){}
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        pages.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    pages.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
     
     @FXML
     private void uploadCover()
@@ -84,6 +100,16 @@ public class AddBookViewController implements Initializable {
     private void sendBook()
     {
         JSONObject params = new JSONObject();
+        
+        if(bookTitle.getText().trim().equals("") || language.getText().trim().equals("") || pages.getText().trim().equals(""))
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Eroare !");
+            alert.setHeaderText("Campurile nu pot fi goale !");
+            alert.setContentText("");
+            alert.showAndWait();
+            return;
+        }
         
         JSONObject b = new JSONObject();
         b.put("name", bookTitle.getText());
@@ -135,15 +161,20 @@ public class AddBookViewController implements Initializable {
             alert.setHeaderText("Cartea a fost adaugata cu succes !");
             alert.setContentText("Cartea impreuna cu toate datele acesteia au fost salvate cu success in baza de date !");
             alert.showAndWait();
-//            getReservations();  
+            ctrl.filterBooks();
+            Stage oldStage = (Stage) img.getScene().getWindow();
+            oldStage.close();
         }
         else if(response.has("warning"))
         {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Atentie !");
-            alert.setHeaderText("Cartea nu a putut fi adaugata !");
+            alert.setHeaderText("Coperta cartii nu poate fi inserata !");
             alert.setContentText(response.getString("warning"));
             alert.showAndWait();
+            ctrl.filterBooks();
+            Stage oldStage = (Stage) img.getScene().getWindow();
+            oldStage.close();
         }
         else
         {
@@ -156,8 +187,9 @@ public class AddBookViewController implements Initializable {
     }
     
     
-    public void passParameters(Client c){
+    public void passParameters(Client c, MainAdminController ctrl){
         this.client = c;
+        this.ctrl = ctrl;
     }
     
     private String getFileExtension(File file) {

@@ -26,12 +26,13 @@ CREATE TABLE `reservations` (
   `id` int NOT NULL AUTO_INCREMENT,
   `book_id` int NOT NULL,
   `user_id` int NOT NULL,
+  `date` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `reservations_book_idx` (`book_id`),
   KEY `reservations_user_idx` (`user_id`),
   CONSTRAINT `reservations_book` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
   CONSTRAINT `reservations_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +41,7 @@ CREATE TABLE `reservations` (
 
 LOCK TABLES `reservations` WRITE;
 /*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
-INSERT INTO `reservations` VALUES (7,1,2),(8,1,2),(9,1,2),(10,1,2),(11,3,2),(12,3,2);
+INSERT INTO `reservations` VALUES (1,1,2,'2020-02-11');
 /*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-11 23:00:12
+-- Dump completed on 2021-02-11  1:08:06
